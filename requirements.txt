@@ -7,3 +7,4 @@ Flask-Migrate==4.1.0
 pillow==10.4.0
 WTForms==3.2.1
 Flask-SocketIO==5.5.1
+pyotp==2.9.0

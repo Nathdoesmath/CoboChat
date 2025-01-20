@@ -45,6 +45,10 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('That username is taken. Please choose a different one.')
             
+class OTPSetup(FlaskForm):
+    OTPCode = StringField("6 digit authenticator code",
+                          validators=[DataRequired, Length(min=6, max=6)])
+            
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired(), Length(min=1, max=100)])
     content = TextAreaField('Content', validators=[DataRequired(), Length(min=1, max=1000)])

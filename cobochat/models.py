@@ -1,6 +1,7 @@
 from cobochat import db, login_manager
 from datetime import datetime
 from flask_login import UserMixin
+import pyotp
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -52,3 +53,11 @@ class Announcement(db.Model):
 
     def __repr__(self):
         return f"Announcement('{self.title}', '{self.date_posted}')"
+    
+class OTP(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    secret = db.Column(db.String, unique=True, nullable = False)
+    backup1 = db.Column(db.String(20), unique=True, nullable = False)
+    backup2 = db.Column(db.String(20), unique=True, nullable = False)
+    backup3 = db.Column(db.String(20), unique=True, nullable = False)
