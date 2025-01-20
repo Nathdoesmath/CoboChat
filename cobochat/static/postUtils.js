@@ -1,11 +1,14 @@
+let apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 
+    'http://localhost:5000/api/' : 
+    'https://cobochat.com/api/';
 
-    /* --- Likes --- */
+/* --- Likes --- */
 
 const sendLike = async (user_id, post_id) => {
     const formData = new FormData();
     formData.append("user_id", user_id);
     formData.append("post_id", post_id)
-    const response = await fetch("{{ url_for('api_like') }}", {
+    const response = await fetch(apiUrl + "like", {
         method: "POST",
         body: formData
     });
@@ -25,7 +28,7 @@ const sendDislike = async (user_id, post_id) => {
     const formData = new FormData();
     formData.append("user_id", user_id);
     formData.append("post_id", post_id)
-    const response = await fetch("{{ url_for('api_dislike') }}", {
+    const response = await fetch(apiUrl + "dislike", {
         method: "POST",
         body: formData
     });
@@ -46,17 +49,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const dateElements = document.querySelectorAll('[data-post-date]');
 
     dateElements.forEach(elem => {
-    const isoString = elem.getAttribute('data-post-date');
-    const date = new Date(isoString);
-    const formattedDate = date.toLocaleString(undefined, {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true
-    });
-
-    elem.textContent = formattedDate;
+    elem.textContent = new Date(elem
+        .getAttribute('data-post-date'))
+        .toLocaleString(undefined, {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+    });;
     });
 });

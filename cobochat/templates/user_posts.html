@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
-
+  
+  <script src="../static/postUtils.js"></script>
   <div class="content-section loginContainer">
     <div class="media">
       <img class="rounded-circle account-img" src="{{ url_for('static', filename='profile_pics/' + user.image_file) }}">
@@ -31,7 +32,7 @@
             <div class="article-metadata">
               <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }} - {{ user.account_type }}</a>
               <small class="text-muted" 
-                data-post-date="{{ post.date_posted.isoformat() }}">
+                data-post-date="{{ post.date_posted.isoformat() + 'Z'}}">
                 <!-- placeholder date text -->
                 Yelling at Cobo
               </small>
@@ -72,5 +73,4 @@
         {% endif %}
       {% endfor %}
     </div>
-    <script src="../static/postUtils.js"></script> 
 {% endblock content %}
